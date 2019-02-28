@@ -1,0 +1,53 @@
+package com.三种工厂方法.简单工厂模式;
+
+
+//简单工厂就是有一个工厂的接口，然后将实现接口子类的实例化操作放在另一个实现类中
+//然后这个类通过接受的参数来决定实现什么类，参数由客户端传入
+//简单工厂的缺点就是：使用了switch-case，这样的话想要再添加一种产品，就得修改实现类中的代码，违背了开-闭原则。
+
+
+interface INoodles{
+    public void desc();
+}
+
+class LzNoodles implements INoodles{
+
+    @Override
+    public void desc() {
+        System.out.println("兰州拉面");
+    }
+}
+
+class PaoNoodles implements INoodles{
+
+    @Override
+    public void desc() {
+        System.out.println("泡面");
+    }
+}
+
+class GanNoodles implements INoodles{
+
+    @Override
+    public void desc() {
+        System.out.println("干拌面");
+    }
+}
+
+class CreateNoodles{
+    public INoodles create(int count){
+        switch (count){
+            case 1:return new LzNoodles();
+            case 2:return new PaoNoodles();
+            case 3:return new GanNoodles();
+        }
+        return new LzNoodles();
+    }
+}
+
+public class Test {
+    public static void main(String[] args) {
+        INoodles noodles = new CreateNoodles().create(2);
+        noodles.desc();
+    }
+}
